@@ -58,29 +58,28 @@ class ImportCommand extends Command
                 // Utilisation de l'opérateur ?? pour définir une valeur par défaut si la clé "longitude" n'est pas définie
                 $user->setLongitude($userData['address']['geolocation']['long'] ?? null);
             }
+            $this->entityManager->persist($user);
+        }
 
-            foreach ($productsData as $productData) {
-                // Crée et persiste un nouveau produit avec les données de l'API
-                $product = new Product();
-                $product->setTitle($productData['title']);
-                $product->setDescription($productData['description']);
-                $product->setPrice($productData['price']);
-                $product->setCategory($productData['category']);
+        foreach ($productsData as $productData) {
+            // Crée et persiste un nouveau produit avec les données de l'API
+            $product = new Product();
+            $product->setTitle($productData['title']);
+            $product->setDescription($productData['description']);
+            $product->setPrice($productData['price']);
+            $product->setCategory($productData['category']);
 
-                // Ajoute les propriétés d'image
-                if (isset($productData['image'])) {
-                    $product->setImage($productData['image']);
-                }
+            // Ajoute les propriétés d'image
+            if (isset($productData['image'])) {
+                $product->setImage($productData['image']);
             }
 
             $this->entityManager->persist($product);
-
-            $this->entityManager->persist($user);
         }
 
         $this->entityManager->flush();
 
-        $output->writeln('Import fait avec succés !');
+        $output->writeln('Import fait avec succès !');
 
         return Command::SUCCESS;
     }

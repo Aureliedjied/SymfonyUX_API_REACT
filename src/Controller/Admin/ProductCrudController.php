@@ -3,16 +3,23 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use App\Service\ApiService;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Vich\UploaderBundle\Form\Type\VichFileType;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField; // Add this import statement
 
 class ProductCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private readonly ApiService $apiService,
+    ) {
+    }
+
     public static function getEntityFqcn(): string
     {
         return Product::class;
@@ -28,8 +35,11 @@ class ProductCrudController extends AbstractCrudController
 
         yield MoneyField::new('price')
             ->setCurrency('EUR')
-            ->setRequired(true);
+            ->setRequired(true)
+            ->setStoredAsCents(false);
 
-        yield Field::new('Image');
+        // yield Field::new('image', 'Image URL')
+        //     ->setTemplatePath('admin/product/image.html.twig')
+        //     ->onlyOnIndex();
     }
 }

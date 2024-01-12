@@ -3,15 +3,15 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ApiService
 {
     private $httpClient;
 
-    public function __construct()
+    public function __construct(HttpClientInterface $httpClient)
     {
-        $this->httpClient = HttpClient::create();
+        $this->httpClient = $httpClient;
     }
 
     public function getProducts()

@@ -31,7 +31,7 @@ class Product
 
     #[ApiProperty]
     #[Assert\NotBlank]
-    #[ORM\Column]
+    #[ORM\Column(type: 'decimal', precision: 5, scale: 2)]
     #[Groups('product:read')]
     private ?string $price = null;
 
@@ -43,13 +43,13 @@ class Product
 
     #[ApiProperty]
     #[Assert\NotBlank]
-    #[ORM\Column]
+    #[ORM\Column(type: 'text')]
     #[Groups('product:read')]
     private ?string $description = null;
 
     #[ApiProperty]
     #[Assert\NotBlank]
-    #[ORM\Column]
+    #[ORM\Column(type: 'text')]
     #[Groups('product:read')]
     private ?string $image = null;
 
@@ -70,12 +70,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?string
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(string $price): static
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
