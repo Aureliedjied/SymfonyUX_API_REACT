@@ -2,42 +2,53 @@
 
 namespace App\Entity;
 
-use Assert\NotBlank;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiProperty;
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-#[ApiResource]
 class Product
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('product:read')]
     private ?int $id = null;
 
     #[ApiProperty]
-    #[Assert\NotBlank]
+    #[NotBlank]
+    #[ORM\Column]
+    #[Groups('product:read')]
     private ?string $title = null;
 
     #[ApiProperty]
     #[Assert\NotBlank]
+    #[ORM\Column]
+    #[Groups('product:read')]
     private ?string $price = null;
 
     #[ApiProperty]
     #[Assert\NotBlank]
+    #[ORM\Column]
+    #[Groups('product:read')]
     private ?string $category = null;
 
     #[ApiProperty]
     #[Assert\NotBlank]
+    #[ORM\Column]
+    #[Groups('product:read')]
     private ?string $description = null;
 
     #[ApiProperty]
     #[Assert\NotBlank]
+    #[ORM\Column]
+    #[Groups('product:read')]
     private ?string $image = null;
 
     public function getId(): ?int

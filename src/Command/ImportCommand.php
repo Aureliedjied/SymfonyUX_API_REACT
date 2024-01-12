@@ -71,12 +71,13 @@ class ImportCommand extends Command
                 if (isset($productData['image'])) {
                     $product->setImage($productData['image']);
                 }
-
-                $this->entityManager->persist($product);
             }
+
+            $this->entityManager->persist($product);
 
             $this->entityManager->persist($user);
         }
+
         $this->entityManager->flush();
 
         $output->writeln('Import fait avec succés !');
