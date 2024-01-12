@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Home !
+{% endblock %}
+
+{% block body %}
+	<div class="bg-grey">
+		<div class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+			<div class="text-center">
+				<p class="mt-1 text-4xl font-bold tracking-tight text-gray-500 sm:text-5xl lg:text-6xl">Ceci est une démo de React dans une application Symfony</p>
+
+			</div>
+			<main class="container mx-auto mt-8">
+				<h2 class="text-3xl font-semibold mb-4">Nos Produits</h2>
+
+				<div
+					class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+					<!-- Produit 1 -->
+					<div class="bg-white rounded-lg overflow-hidden shadow-md">
+						<img src="produit1.jpg" alt="Produit 1" class="w-full h-48 object-cover">
+						<div class="p-4">
+							<h3 class="text-xl font-semibold mb-2">Nom du Produit 1</h3>
+							<p class="text-gray-700">Description courte du produit.</p>
+							<p class="text-green-500 font-semibold mt-2">$19.99</p>
+							<button class="mt-4 bg-green-500 text-white px-4 py-2 rounded-full">Ajouter au panier</button>
+						</div>
+					</div>
+
+					<!-- Produit 2 -->
+					<!-- Répétez la structure du produit pour chaque produit -->
+
+				</div>
+			</main>
+		</div>
+	</div>
+{% endblock %}
