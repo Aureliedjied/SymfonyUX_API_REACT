@@ -4,13 +4,62 @@
 {% endblock %}
 
 {% block body %}
-	<div class="bg-grey">
-		<div class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-			<div class="text-center">
-				<p class="mt-1 text-4xl font-bold tracking-tight text-gray-500 sm:text-5xl lg:text-6xl">Ceci est une démo test utilisant Symfony UX, des composants React dans une application e-commerce, avec l'API Fake Store API</p>
-
+	<div class="bg-white py-24 sm:py-32">
+		<div class="mx-auto max-w-7xl px-6 lg:px-8">
+			<div class="mx-auto max-w-2xl lg:text-center">
+				<h2 class="text-base font-semibold leading-7 text-green-500">Bienvenue</h2>
+				<p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Ceci est une démo/test</p>
+				<p class="mt-6 text-lg leading-8 text-gray-600">Vous trouverez les documentations ci dessous, n'hésitez pas</p>
 			</div>
-
+			<div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+				<dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+					<div
+						class="relative pl-16">
+						<!-- Tailwind CSS Logo -->
+						<dt class="text-base font-semibold leading-7 text-gray-900">
+							<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-green-500">
+								<i class="fab fa-tailwind text-white"></i>
+							</div>
+							<a href="https://tailwindcss.com/docs/installation" class="btn-blue">Tailwind CSS Documentation</a>
+						</dt>
+						<dd class="mt-2 text-base leading-7 text-gray-600">Guide complet d'installation et utilisation de Tailwind CSS.</dd>
+					</div>
+					<div
+						class="relative pl-16">
+						<!-- Symfony UX Logo -->
+						<dt class="text-base font-semibold leading-7 text-gray-900">
+							<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-green-500">
+								<i class="fab fa-symfony text-white"></i>
+							</div>
+							<a href="https://symfony.com/doc/current/frontend/ux.html" class="btn-blue">Symfony UX Documentation</a>
+						</dt>
+						<dd class="mt-2 text-base leading-7 text-gray-600">Documentation sur l'intégration de Symfony UX dans Symfony.</dd>
+					</div>
+					<div
+						class="relative pl-16">
+						<!-- API Platform Logo -->
+						<dt class="text-base font-semibold leading-7 text-gray-900">
+							<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-green-500">
+								<i class="fas fa-cube text-white"></i>
+							</div>
+							<a href="https://api-platform.com/docs/" class="btn-blue">API Platform Documentation</a>
+						</dt>
+						<dd class="mt-2 text-base leading-7 text-gray-600">Documentation complète d'API Platform pour l'intégration dans votre démo e-commerce.</dd>
+					</div>
+					<div class="relative pl-16">
+						<dt class="text-base font-semibold leading-7 text-gray-900">
+							<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-green-500">
+								<svg class="h-6 w-6 text-white" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33"/>
+								</svg>
+							</div>
+							<a href="https://fakestoreapi.com/docs" class="btn-blue">Fake Store API Documentation</a>
+						</dt>
+						<dd class="mt-2 text-base leading-7 text-gray-600">Documentation complète de l'API Fake Store pour l'intégration dans cette démo e-commerce, grâce à laquelle nous evitons ici du lorem ipsum</dd>
+					</div>
+				</dl>
+			</div>
 		</div>
 	</div>
+
 {% endblock %}

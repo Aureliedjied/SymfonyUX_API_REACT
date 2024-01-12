@@ -20,13 +20,11 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name')
+        yield TextField::new('title')
             ->setRequired(true);
 
         yield TextareaField::new('description')
             ->setRequired(true);
-
-        yield BooleanField::new('active');
 
         yield MoneyField::new('price')
             ->setCurrency('EUR')
