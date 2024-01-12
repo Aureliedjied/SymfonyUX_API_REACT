@@ -30,13 +30,6 @@ class ProductCrudController extends AbstractCrudController
             ->setCurrency('EUR')
             ->setRequired(true);
 
-        yield Field::new('Image')
-            ->onlyOnForms();
-
-        yield TextField::new('stripeProductId', 'Identifiant Produit Stripe')
-            ->hideWhenCreating();
-
-        yield TextField::new('stripePriceId', 'Identifiant Prix Stripe')
-            ->hideWhenCreating();
+        yield Field::new('Image');
     }
 }

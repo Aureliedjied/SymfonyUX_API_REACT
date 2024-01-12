@@ -33,10 +33,10 @@ class ApiService
 
         foreach ($users as &$user) {
             // Vérifie si la clé "latitude" est définie avant de l'utiliser
-            $user['latitude'] = $userData['address']['geolocation']['latitude'] ?? null;
+            $user['latitude'] = $user['address']['geolocation']['latitude'] ?? null;
 
             // Vérifie si la clé "longitude" est définie avant de l'utiliser
-            $user['longitude'] = $userData['address']['geolocation']['longitude'] ?? null;
+            $user['longitude'] = $user['address']['geolocation']['longitude'] ?? null;
         }
 
         return $users;

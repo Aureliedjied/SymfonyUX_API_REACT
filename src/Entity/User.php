@@ -23,7 +23,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ApiProperty]
-    #[Assert\NotBlank]
     #[Groups(['read', 'write'])]
     private ?string $username = null;
 
@@ -34,7 +33,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstName = null;
 
     #[ApiProperty(identifier: true)]
-    #[Assert\NotBlank]
     #[Assert\Email]
     private ?string $email = null;
 
@@ -42,7 +40,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ApiProperty]
-    #[Assert\NotBlank]
     private ?string $password = null;
 
     #[ApiProperty]
