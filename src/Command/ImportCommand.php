@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Service\ApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -12,14 +13,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportCommand extends Command
 {
-    private ApiService $ApiService;
+    private ApiService $apiService;
     private EntityManagerInterface $entityManager;
 
-    public function __construct(ApiService $ApiService, EntityManagerInterface $entityManager)
+    public function __construct(ApiService $apiService, EntityManagerInterface $entityManager)
     {
         parent::__construct();
 
-        $this->ApiService = $ApiService;
+        $this->apiService = $apiService;
         $this->entityManager = $entityManager;
     }
 
@@ -32,46 +33,61 @@ class ImportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Récupère les données de l'API
-        $usersData = $this->ApiService->getUsers();
-        $productsData = $this->ApiService->getProducts();
+        $usersData = $this->apiService->getUsers();
+        $productsData = $this->apiService->getProducts();
+        $categoriesData = $this->apiService->getCategories();
 
         // Importe les utilisateurs
         foreach ($usersData as $userData) {
-            // Crée et persiste un nouvel utilisateur avec les données de l'API
+            // Crée et persiste les users avec les données de l'API
             $user = new User();
             $user->setEmail($userData['email']);
-            $user->setUsername($userData['username']);
-            $user->setFirstName($userData['name']['firstname']);
-            $user->setLastName($userData['name']['lastname']);
+            $user->setName($userData['name']);
             $user->setRoles($userData['roles'] ?? []);
             $user->setPassword($userData['password']);
+            $user->setAvatar($userData['avatar']);
 
-            // Ajoute les propriétés d'adresse
-            if (isset($userData['address'])) {
-                $user->setCity($userData['address']['city']);
-                $user->setStreet($userData['address']['street']);
-                $user->setNumber($userData['address']['number']);
-                $user->setZipcode($userData['address']['zipcode']);
-                // Utilisation de l'opérateur ?? pour définir une valeur par défaut si la clé "latitude" n'est pas définie
-                $user->setLatitude($userData['address']['geolocation']['lat'] ?? null);
-
-                // Utilisation de l'opérateur ?? pour définir une valeur par défaut si la clé "longitude" n'est pas définie
-                $user->setLongitude($userData['address']['geolocation']['long'] ?? null);
-            }
             $this->entityManager->persist($user);
         }
 
+        // Importe les catégories
+        foreach ($categoriesData as $categoryData) {
+            // Vérifie si la catégorie existe déjà
+            $categoryId = $categoryData['id'];
+            $existingCategory = $this->entityManager->getRepository(Category::class)->find($categoryId);
+
+            if (!$existingCategory) {
+                // Crée et persiste la catégorie si elle n'existe pas
+                $category = new Category();
+                $category->setName($categoryData['name']);
+                $category->setImage($categoryData['image']);
+
+                $this->entityManager->persist($category);
+            }
+        }
+
+        // Exécute les opérations d'insertion dans la base de données pour les catégories
+        $this->entityManager->flush();
+
+        // Importe ensuite les produits
         foreach ($productsData as $productData) {
-            // Crée et persiste un nouveau produit avec les données de l'API
+            // Crée et persiste un produit avec les données de l'API
             $product = new Product();
             $product->setTitle($productData['title']);
             $product->setDescription($productData['description']);
             $product->setPrice($productData['price']);
-            $product->setCategory($productData['category']);
+            $product->setImages($productData['images'] ?? []);
 
-            // Ajoute les propriétés d'image
-            if (isset($productData['image'])) {
-                $product->setImage($productData['image']);
+            // Assurez-vous que la clé "category" existe dans les données de l'API
+            if (isset($productData['category']['id'])) {
+                // Récupère la catégorie correspondante
+                $categoryId = $productData['category']['id'];
+                $category = $this->entityManager->getRepository(Category::class)->find($categoryId);
+
+                if ($category) {
+                    // Lie le produit à la catégorie
+                    $product->setCategory($category);
+                }
             }
 
             $this->entityManager->persist($product);

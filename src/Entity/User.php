@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,50 +16,34 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ApiProperty]
-    #[Groups(['read', 'write'])]
-    private ?string $username = null;
+    #[ORM\Column(length: 255)]
+    #[Groups('user:read')]
+    private ?string $name = null;
 
-    #[ORM\Column(name: "lastName")]
-    private ?string $lastName = null;
-
-    #[ORM\Column(name: "firstName")]
-    private ?string $firstName = null;
-
-    #[ApiProperty(identifier: true)]
+    #[ApiProperty]
     #[Assert\Email]
+    #[ORM\Column(length: 255)]
+    #[Groups('user:read')]
     private ?string $email = null;
 
     #[ORM\Column(type: "json")]
+    #[Groups('user:read')]
     private array $roles = [];
 
     #[ApiProperty]
+    #[ORM\Column(length: 255)]
+    #[Groups('user:read')]
     private ?string $password = null;
 
     #[ApiProperty]
-    private ?string $phone = null;
-
-    #[ORM\Column(name: "city", nullable: true)]
-    private ?string $city = null;
-
-    #[ORM\Column(name: "street", nullable: true)]
-    private ?string $street = null;
-
-    #[ORM\Column(name: "number", nullable: true)]
-    private ?int $number = null;
-
-    #[ORM\Column(name: "zipcode", nullable: true)]
-    private ?string $zipcode = null;
-
-    #[ORM\Column(name: "`lat`", nullable: true)]
-    private ?string $latitude = null;
-
-    #[ORM\Column(name: "`long`", nullable: true)]
-    private ?string $longitude = null;
+    #[ORM\Column(length: 255)]
+    #[Groups('user:read')]
+    private ?string $avatar = null;
 
 
     public function getId(): ?int
@@ -123,44 +105,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Get the value of lastName
+     * Get the value of Name
      */
-    public function getLastName()
+    public function getName()
     {
-        return $this->lastName;
+        return $this->name;
     }
 
     /**
-     * Set the value of lastName
+     * Set the value of name
      *
      * @return  self
      */
-    public function setLastName($lastName)
+    public function setName($name)
     {
-        $this->lastName = $lastName;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get the value of firstName
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set the value of firstName
-     *
-     * @return  self
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
 
     /**
      * Get the value of email
@@ -182,162 +145,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     /**
-     * Get the value of username
+     * Get the value of avatar
      */
-    public function getUsername()
+    public function getAvatar(): ?string
     {
-        return $this->username;
+        return $this->avatar;
     }
 
     /**
-     * Set the value of username
+     * Set the value of avatar
      *
-     * @return  self
+     * @param string|null $avatar
+     * @return self
      */
-    public function setUsername($username)
+    public function setAvatar(?string $avatar): self
     {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of phone
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Set the value of phone
-     *
-     * @return  self
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of city
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set the value of city
-     *
-     * @return  self
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of street
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
-    /**
-     * Set the value of street
-     *
-     * @return  self
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of number
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * Set the value of number
-     *
-     * @return  self
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of latitude
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * Set the value of latitude
-     *
-     * @return  self
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of longitude
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-    /**
-     * Set the value of longitude
-     *
-     * @return  self
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of zipcode
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
-
-    /**
-     * Set the value of zipcode
-     *
-     * @return  self
-     */
-    public function setZipcode($zipcode)
-    {
-        $this->zipcode = $zipcode;
+        $this->avatar = $avatar;
 
         return $this;
     }

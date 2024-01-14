@@ -4,47 +4,54 @@
 namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Psr\Log\LoggerInterface;
 
 class ApiService
 {
     private $httpClient;
+    private $logger;
 
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(HttpClientInterface $httpClient, LoggerInterface $logger)
     {
         $this->httpClient = $httpClient;
+        $this->logger = $logger;
     }
 
     public function getProducts()
     {
-        $response = $this->httpClient->request('GET', 'https://fakestoreapi.com/products');
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products');
         return $response->toArray();
     }
 
     public function getProduct($id)
     {
-        $response = $this->httpClient->request('GET', 'https://fakestoreapi.com/products/' . $id);
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products/' . $id);
         return $response->toArray();
     }
 
     public function getUsers()
     {
-        $response = $this->httpClient->request('GET', 'https://fakestoreapi.com/users');
-        $users = $response->toArray();
-
-        foreach ($users as &$user) {
-            // Vérifie si la clé "latitude" est définie avant de l'utiliser
-            $user['latitude'] = $user['address']['geolocation']['latitude'] ?? null;
-
-            // Vérifie si la clé "longitude" est définie avant de l'utiliser
-            $user['longitude'] = $user['address']['geolocation']['longitude'] ?? null;
-        }
-
-        return $users;
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/users');
+        return $response->toArray();
     }
 
     public function getUser($id)
     {
-        $response = $this->httpClient->request('GET', 'https://fakestoreapi.com/users/' . $id);
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/users/' . $id);
+        return $response->toArray();
+    }
+
+    public function getCategories(): array
+    {
+
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/categories');
+        return $response->toArray();
+    }
+
+
+    public function getCategory(string $id)
+    {
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/categories/' . $id);
         return $response->toArray();
     }
 }

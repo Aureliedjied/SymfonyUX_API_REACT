@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\File\File;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -15,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['category' => 'exact'])]
 class Product
 {
     #[ORM\Id]
@@ -31,15 +34,10 @@ class Product
 
     #[ApiProperty]
     #[Assert\NotBlank]
-    #[ORM\Column(type: 'decimal', precision: 5, scale: 2)]
-    #[Groups('product:read')]
-    private ?string $price = null;
-
-    #[ApiProperty]
-    #[Assert\NotBlank]
     #[ORM\Column]
     #[Groups('product:read')]
-    private ?string $category = null;
+    private ?int $price = null;
+
 
     #[ApiProperty]
     #[Assert\NotBlank]
@@ -49,9 +47,14 @@ class Product
 
     #[ApiProperty]
     #[Assert\NotBlank]
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'json')]
     #[Groups('product:read')]
-    private ?string $image = null;
+    private ?array $images = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[Groups('product:read')]
+    private ?Category $category;
+
 
     public function getId(): ?int
     {
@@ -82,17 +85,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -106,14 +98,26 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImages(): ?array
     {
-        return $this->image;
+        return $this->images;
     }
 
-    public function setImage(string $image): static
+    public function setImages(?array $images): self
     {
-        $this->image = $image;
+        $this->images = $images;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

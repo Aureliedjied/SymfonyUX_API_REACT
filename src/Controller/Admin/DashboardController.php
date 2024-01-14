@@ -17,7 +17,8 @@ class DashboardController extends AbstractDashboardController
 {
 
     public function __construct(
-        private readonly AdminUrlGenerator $adminUrlGenerator
+        private readonly AdminUrlGenerator $adminUrlGenerator,
+        private readonly ApiService $apiService
     ) {
     }
 
@@ -40,25 +41,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('Tous les utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Tous les Produits', 'fas fa-list', Product::class);
     }
 }
-// private ApiService $apiService;
-
-// public function __construct(ApiService $apiService)
-// {
-//     $this->apiService = $apiService;
-// }
-
-// #[Route('/admin', name: 'admin')]
-// public function index(): Response
-// {
-//     $products = $this->apiService->getProducts();
-//     $users = $this->apiService->getUsers();
-
-//     return $this->render('admin/index.html.twig', [
-//         'products' => $products,
-//         'users' => $users,
-//     ]);
-// }
