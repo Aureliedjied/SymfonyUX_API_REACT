@@ -11,7 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField; // Add this import statement
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -27,6 +27,9 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield IdField::new('id')
+            ->onlyOnIndex();
+
         yield TextField::new('title')
             ->setRequired(true);
 
@@ -37,9 +40,5 @@ class ProductCrudController extends AbstractCrudController
             ->setCurrency('EUR')
             ->setRequired(true)
             ->setStoredAsCents(false);
-
-        // yield Field::new('image', 'Image URL')
-        //     ->setTemplatePath('admin/product/image.html.twig')
-        //     ->onlyOnIndex();
     }
 }

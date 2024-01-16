@@ -17,7 +17,7 @@ class ApiService
         $this->logger = $logger;
     }
 
-    public function getProducts()
+    public function getProducts(): array
     {
         $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products');
         return $response->toArray();
@@ -52,6 +52,12 @@ class ApiService
     public function getCategory(string $id)
     {
         $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/categories/' . $id);
+        return $response->toArray();
+    }
+
+    public function getProductsByCategoryId(string $id)
+    {
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products/?categoryId=' . $id);
         return $response->toArray();
     }
 }

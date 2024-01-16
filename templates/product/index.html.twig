@@ -6,10 +6,9 @@
 {% block body %}
 	<main class="container mx-auto mt-8">
 		<h2 class="text-3xl font-semibold mb-4">Nos Produits</h2>
-
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 			{% for product in products %}
-				<div class="bg-white rounded-lg overflow-hidden shadow-md">
+				<div class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 transform hover:scale-105">
 					<a href="{{ path('api_product', {'id': product.id}) }}">
 						<div class="flex overflow-hidden">
 							{% for image in product.images %}
@@ -30,5 +29,7 @@
 				</div>
 			{% endfor %}
 		</div>
+
+
 	</main>
 {% endblock %}

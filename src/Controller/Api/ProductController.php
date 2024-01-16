@@ -21,9 +21,11 @@ class ProductController extends AbstractController
     {
         // Utilisation du service ApiService pour récupérer les produits
         $products = $this->apiService->getProducts();
-        // dump($products);
+        $categories = $this->apiService->getCategories();
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'categories' => $categories,
         ]);
     }
 
@@ -39,14 +41,15 @@ class ProductController extends AbstractController
     }
 
 
-    #[Route('/products/categorie/{category}', name: 'products_in_category', methods: ['GET'])]
-    public function getProductsInCategory(int $id): Response
+    #[Route('/products/category/{id}', name: 'products_in_category', methods: ['GET'])]
+    public function getProductsByCategory(int $id): Response
     {
         // Utilisation du service ApiService pour récupérer les produits d'une catégorie
-        $products = $this->apiService->getCategory($id);
+        $products = $this->apiService->getProductsByCategoryId($id);
 
         return $this->render('product/in_category.html.twig', [
             'products' => $products,
+            'categoryId' => $id,
         ]);
     }
 }

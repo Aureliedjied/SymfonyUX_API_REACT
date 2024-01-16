@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Service\ApiService;
 use PhpParser\Node\Expr\Yield_;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,5 +44,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Tous les utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Tous les Produits', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Toutes les catégories', 'fas fa-list', Category::class);
+        yield MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'app_home');
     }
 }
