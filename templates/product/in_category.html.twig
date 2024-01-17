@@ -18,10 +18,10 @@
 			</div>
 		</aside>
 
-		<main>
-			<h2 class="text-2xl font-semibold mb-4">Produits de la Catégorie
-				{{ categories[categoryId].name }}
-			</h2>
+		<main
+			class="flex-1 pl-8 pt-4">
+			{# Utilisation de "pl-8" pour un padding à gauche et "pt-4" pour un padding en haut #}
+			<h2 class="text-3xl font-extrabold mb-4 text-green-500">{{ categories[categoryId].name }}</h2>
 
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">

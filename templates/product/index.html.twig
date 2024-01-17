@@ -4,11 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<div
-		class="flex">
+	<div class="flex items-start">
+		{# Utilisation de "items-start" pour décaler le contenu vers le haut #}
 		{# Affichage de toutes les catégories : #}
-		<aside class="w-1/4 p-10 bg-gray-100">
-			<div class="rounded-lg overflow-hidden shadow-md">
+			<aside class="w-1/4 p-10 bg-gray-100"> <div class="rounded-lg overflow-hidden shadow-md">
 				<h2 class="text-2xl font-semibold mb-4 p-4 bg-green-500 text-white">Catégories</h2>
 				<ul class="p-4">
 					{% for category in categories %}
@@ -20,30 +19,15 @@
 			</div>
 
 			{# Formulaire de filtrage par prix avec styles personnalisés Tailwind CSS : #}
-			<div class="rounded-lg overflow-hidden shadow-md mt-4 p-4 bg-gray-200">
-				<h2 class="text-2xl font-semibold mb-4">Filtrer par Prix</h2>
-				<form action="{{ path('api_products_filter') }}" method="get" class="space-y-4">
-					<div class="flex items-center space-x-4">
-						<label for="price_min" class="w-20 text-gray-600">Prix min:</label>
-						<input type="number" name="price_min" id="price_min" value="{{ priceMin ?? '' }}" class="w-1/2 border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300" min="0"/>
-					</div>
-
-					<div class="flex items-center space-x-4">
-						<label for="price_max" class="w-20 text-gray-600">Prix max:</label>
-						<input type="number" name="price_max" id="price_max" value="{{ priceMax ?? '' }}" class="w-1/2 border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300" min="0"/>
-					</div>
-
-					<button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">Filtrer</button>
-				</form>
-			</div>
-
+			{% include 'partials/price_filter.html.twig' %}
 
 		</aside>
 
-
-		<main class="flex-1">
-			<h2 class="text-2xl font-semibold mb-4">Tous nos Produits</h2>
-
+		<main
+			class="flex-1 pl-8 pt-4">
+			{# Utilisation de "pl-8" pour un padding à gauche et "pt-4" pour un padding en haut #}
+			<h2 class="text-3xl font-extrabold mb-4 text-green-500">Découvrez notre Collection</h2>
+			{# Augmentation de la taille du texte #}
 
 			{# Affichage des produits #}
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -61,16 +45,13 @@
 							<p class="text-gray-700">{{ product.description | slice(0, 50) ~ '...' }}</p>
 							<p class="text-green-500 font-semibold mt-2">Prix :
 								{{ product.price }}€</p>
-							{# Lien vers la catégorie : #}
 							<p class="text-blue-500 font-semibold mt-2">Catégorie :
-								<a href="{{ path('api_products', {'category': product.category.id}) }}" class="text-blue-500 hover:underline">{{ product.category.name }}</a>
+								<span class="text-blue-500 ">{{ product.category.name }}</span>
 							</p>
 							<button class="mt-4 bg-green-500 text-white px-4 py-2 rounded-full">Ajouter au panier</button>
 						</div>
-
 					</div>
 				{% endfor %}
-
 			</div>
 		</main>
 	</div>

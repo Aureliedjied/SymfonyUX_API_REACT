@@ -18,6 +18,7 @@ class ProductController extends AbstractController
         $this->apiService = $apiService;
     }
 
+
     #[Route('/products', name: 'api_products', methods: ['GET'])]
     public function getProducts(): Response
     {
@@ -27,9 +28,11 @@ class ProductController extends AbstractController
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
+
+
 
     #[Route('/product/{id}', name: 'api_product', methods: ['GET'])]
     public function getProductById(int $id): Response
@@ -43,6 +46,7 @@ class ProductController extends AbstractController
             'categories' => $categories
         ]);
     }
+
 
 
     #[Route('/products/category/{id}', name: 'products_in_category', methods: ['GET'])]

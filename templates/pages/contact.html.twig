@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Produits
+{% endblock %}
+
+{% block body %}
+	<div class="flex items-start">
+
+		<aside class="w-1/4 p-10 bg-gray-100">
+			<div class="mt-8">
+				<h2 class="text-3xl font-extrabold mb-4 text-green-500">Réseaux Sociaux</h2>
+
+				<aside class="flex flex-col space-y-4">
+					<a href="https://github.com/aureliedjied" target="_blank" class="flex items-center space-x-2 text-green-500 hover:underline">
+						<i class="fab fa-github"></i>
+						GitHub
+					</a>
+					<a href="https://www.linkedin.com/in/aurelie-djied-php-symfony/" target="_blank" class="flex items-center space-x-2 text-green-500 hover:underline">
+						<i class="fab fa-linkedin"></i>
+						LinkedIn
+					</a>
+				</aside>
+			</div>
+		</aside>
+
+		<main class="flex-1 pl-8 pt-4">
+			<div class="mt-8">
+				<h2 class="text-3xl font-extrabold mb-4 text-green-500">Contactez-nous</h2>
+
+				<p class="mb-4">Nous serions ravis de vous entendre ! Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible.</p>
+
+				<form action="#" method="post" class="space-y-4">
+					<div class="flex flex-col space-y-2">
+						<label for="name" class="text-gray-600">Nom :</label>
+						<input type="text" name="name" id="name" class="border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"/>
+					</div>
+
+					<div class="flex flex-col space-y-2">
+						<label for="email" class="text-gray-600">Adresse e-mail :</label>
+						<input type="email" name="email" id="email" class="border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"/>
+					</div>
+
+					<div class="flex flex-col space-y-2">
+						<label for="message" class="text-gray-600">Message :</label>
+						<textarea name="message" id="message" rows="4" class="border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"></textarea>
+					</div>
+
+					<button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-700">Envoyer</button>
+				</form>
+			</div>
+		</main>
+	</div>
+{% endblock %}

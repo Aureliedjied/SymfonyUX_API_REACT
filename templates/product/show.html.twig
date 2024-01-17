@@ -19,8 +19,10 @@
 			</div>
 		</aside>
 
-		<main>
-			<h2 class="text-3xl font-semibold mb-4">{{ product.title }}</h2>
+		<main
+			class="flex-1 pl-8 pt-4">
+			{# Utilisation de "pl-8" pour un padding à gauche et "pt-4" pour un padding en haut #}
+			<h2 class="text-3xl font-extrabold mb-4 text-green-500">{{product.title}}</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				<div class="bg-white rounded-lg overflow-hidden shadow-md">
 					<div class="grid grid-cols-1 gap-4">

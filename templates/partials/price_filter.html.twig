@@ -1,0 +1,16 @@
+<div class="rounded-lg overflow-hidden shadow-md mt-4 p-4 bg-gray-200">
+	<h2 class="text-2xl font-semibold mb-4">Filtrer par Prix</h2>
+	<form action="{{ path('api_products_filter') }}" method="get" class="space-y-4">
+		<div class="flex items-center space-x-4">
+			<label for="price_min" class="w-20 text-gray-600">Prix min:</label>
+			<input type="number" name="price_min" id="price_min" value="{{ priceMin ?? '' }}" class="w-1/2 border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300" min="0"/>
+		</div>
+
+		<div class="flex items-center space-x-4">
+			<label for="price_max" class="w-20 text-gray-600">Prix max:</label>
+			<input type="number" name="price_max" id="price_max" value="{{ priceMax ?? '' }}" class="w-1/2 border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300" min="0"/>
+		</div>
+
+		<button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">Filtrer</button>
+	</form>
+</div>
