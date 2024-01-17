@@ -1,0 +1,16 @@
+    /* Cacher le menu déroulant par défaut */
+    #mobile-menu {
+        display: none;
+    }
+
+    /* Afficher le menu déroulant sur les appareils mobiles */
+    @media (max-width: 767px) {
+        .md\:hidden {
+            display: block !important;
+        }
+
+        .md\:flex {
+            display: none !important;
+        }
+    }
+
