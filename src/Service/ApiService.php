@@ -20,6 +20,7 @@ class ApiService
     public function getProducts(): array
     {
         $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products');
+
         return $response->toArray();
     }
 
@@ -58,6 +59,19 @@ class ApiService
     public function getProductsByCategoryId(string $id)
     {
         $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products/?categoryId=' . $id);
+        return $response->toArray();
+    }
+
+    public function getProductsByPriceRange(int $priceMin, int $priceMax): array
+    {
+        // les paramètres de la requête pour filtrer les produits par prix
+        $response = $this->httpClient->request('GET', 'https://api.escuelajs.co/api/v1/products/', [
+            'query' => [
+                'price_min' => $priceMin,
+                'price_max' => $priceMax,
+            ],
+        ]);
+
         return $response->toArray();
     }
 }

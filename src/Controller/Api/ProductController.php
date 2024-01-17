@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Service\ApiService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,7 +57,27 @@ class ProductController extends AbstractController
             'products' => $products,
             'categories' => $categories,
             'categoryId' => $id,
-            'ategory' => $category
+            'category' => $category
+        ]);
+    }
+
+    // Route pour filtrer les produits par prix
+    #[Route('/products/filter', name: 'api_products_filter', methods: ['GET'])]
+    public function filterProductsByPriceRange(Request $request): Response
+    {
+        // Récupérer les valeurs du prix min et max depuis la requête de l'utilisateur
+        $priceMin = $request->query->getInt('price_min');
+        $priceMax = $request->query->getInt('price_max');
+
+        // Utilisation du service ApiService pour récupérer les produits en fonction de la plage de prix
+        $filteredProducts = $this->apiService->getProductsByPriceRange($priceMin, $priceMax);
+        $categories = $this->apiService->getCategories();
+
+        return $this->render('product/index.html.twig', [
+            'products' => $filteredProducts,
+            'categories' => $categories,
+            'priceMin' => $priceMin,
+            'priceMax' => $priceMax,
         ]);
     }
 }
