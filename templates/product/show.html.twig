@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block body %}
-	<div class="flex">
-		<aside class="w-1/4 p-10 bg-gray-100">
+	<div
+		class="flex">
+		{# Affichage de toutes les catégories : #}
+		<aside class="w-full sm:w-1/4 p-4 bg-gray-100">
 			<div class="rounded-lg overflow-hidden shadow-md">
 				<h2 class="text-2xl font-semibold mb-4 p-4 bg-green-500 text-white">Catégories</h2>
 				<ul class="p-4">
@@ -19,12 +21,12 @@
 			</div>
 		</aside>
 
-		<main
-			class="flex-1 pl-8 pt-4">
-			{# Utilisation de "pl-8" pour un padding à gauche et "pt-4" pour un padding en haut #}
+		<main class="flex-1 pl-8 pt-4 mb-8">
 			<h2 class="text-3xl font-extrabold mb-4 text-green-500">{{product.title}}</h2>
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				<div class="bg-white rounded-lg overflow-hidden shadow-md">
+				<div
+					class="bg-white rounded-lg overflow-hidden shadow-md">
+					{# Boucler sur le tableau d'images de product: #}
 					<div class="grid grid-cols-1 gap-4">
 						{% for image in product.images %}
 							<img src="{{ image }}" alt="{{ product.title }}" class="w-full h-48 object-cover mb-2 transition duration-300 transform hover:scale-105">

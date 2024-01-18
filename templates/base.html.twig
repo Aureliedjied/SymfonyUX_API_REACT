@@ -10,26 +10,22 @@
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-			<!-- Tu peux ajouter d'autres liens CSS ici si nécessaire -->
 		{% endblock %}
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
-			<!-- Tu peux ajouter d'autres liens JavaScript ici si nécessaire -->
 		{% endblock %}
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	</head>
 	<body class="overflow-x-hidden">
 		<header class="header sticky-navbar transition-all duration-300 ease-in-out bg-white shadow-md flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-2 transition-opacity">
 			<h1 class="w-full md:w-3/12 text-2xl md:text-3xl font-bold text-green-500 mb-4 md:mb-0">
-				<a href="#">Ma boutique</a>
+				<a href="{{ path('app_home') }}">Ma boutique</a>
 			</h1>
 
 			{% include 'partials/_nav.html.twig' %}
 
 			<div id="mobile-menu" class="md:hidden">
-				<ul
-					class="flex flex-col items-center"><!-- ... Vos liens de navigation ici ... -->
-				</ul>
+				<ul class="flex flex-col items-center"></ul>
 			</div>
 
 			<div class="w-full md:w-3/12 flex justify-end">
@@ -48,7 +44,7 @@
 
 		{% block body %}{% endblock %}
 
-		<footer class="bg-white dark:bg-gray-900 flex flex-col">
+		<footer class="bg-white dark:bg-gray-900 flex flex-col mt-auto">
 			<div class="container px-6 py-12 mx-auto">
 				<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
 					<div class="sm:col-span-2">
@@ -68,7 +64,7 @@
 						<p class="font-semibold text-gray-800 dark:text-white">Quick Link</p>
 
 						<div class="flex flex-col items-start mt-5 space-y-2">
-							<a href="#" class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Accueil</a>
+							<a href="{{ path('app_home') }}" class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Accueil</a>
 							<a href="#" class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Qui sommes nous</a>
 							<a href="#" class="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Notre politique</a>
 						</div>
